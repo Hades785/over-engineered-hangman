@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>app_console</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\hangman-common\hangman-common.csproj" />
+      <ProjectReference Include="..\utilities\utilities.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Lib.Harmony" Version="2.0.4" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1-beta1" />
+    </ItemGroup>
+
+</Project>
