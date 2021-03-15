@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using hangman_common;
 using utilities;
 
@@ -11,10 +10,10 @@ namespace app_console
 {
     internal static class Program
     {
-        private static string[] GetFilesRecursive(string startingDirectory) =>
+        private static IEnumerable<string> GetFilesRecursive(string startingDirectory) =>
             GetFilesRecursive(startingDirectory, "*");
         
-        private static string[] GetFilesRecursive(string startingDirectory, string searchPattern)
+        private static IEnumerable<string> GetFilesRecursive(string startingDirectory, string searchPattern)
         {
             var files = new List<string>();
             
@@ -22,59 +21,24 @@ namespace app_console
             foreach (var directory in Directory.GetDirectories(startingDirectory))
                 files.AddRange(GetFilesRecursive(directory, searchPattern));
 
-            return files.ToArray();
+            return files;
         }
-        private static void LoadMods()
+        
+        private static IEnumerable<(string, string)> LoadData()
         {
-            var modsDir = Path.Combine(Environment.CurrentDirectory, "mods");
-            if (!Directory.Exists(modsDir))
-                Directory.CreateDirectory(modsDir);
-            var files = GetFilesRecursive(modsDir, "*.dll");
+            var dataDir = Path.Combine(Environment.CurrentDirectory, "data");
+            if (!Directory.Exists(dataDir)) Directory.CreateDirectory(dataDir);
+            
+            var files = GetFilesRecursive(dataDir);
+            var dataFiles = new List<(string, string)>();
 
             foreach (var file in files)
             {
-                Console.WriteLine($"Found dll: {file}");
-                var asm = Assembly.LoadFrom(file);
-
-                Type loaderType = null;
-                try
-                {
-                    loaderType = asm.GetTypes().First(x => x.Name == "Loader");
-                }
-                catch (InvalidOperationException)
-                {
-                }
-
-                if (loaderType == null) continue;
-                
-                try
-                {
-                    var basename = Path.GetFileNameWithoutExtension(file);
-                    var modDir = Path.Combine(modsDir, modsDir, basename);
-                    
-                    if (!Directory.Exists(modDir))
-                        Directory.CreateDirectory(modDir);
-                    
-                    if (!GetFilesRecursive(modDir).Contains(file))
-                        File.Move(file, Path.Combine(modDir, $"{basename}.dll"));
-
-                    var loader = Activator.CreateInstance(loaderType, asm, modDir);
-
-                    var getModDetails = loaderType.GetMethod("GetModDetails");
-                    var (modName, modVersion) = ("Unnamed Mod", "0.0.0");
-                    if (loader != null)
-                    {
-                        var result = getModDetails?.Invoke(loader, null);
-                        if (result != null)
-                            (modName, modVersion) = (ValueTuple<string, string>) result;
-                    }
-
-                    Console.WriteLine($"Mod loaded: [{modName}]@{modVersion}");
-                }
-                catch (MissingMethodException)
-                {
-                }
+                var content = File.ReadAllText(file);
+                dataFiles.Add((Path.GetFileNameWithoutExtension(file), content));
             }
+            
+            return dataFiles;
         }
         
         private static Language ChooseLanguage()
@@ -114,11 +78,9 @@ namespace app_console
 
         private static void Main()
         {
-            LoadMods();
-            
             var playing = true;
             var lang = ChooseLanguage();
-            var wordList = WordListFactory.MakeWordList(lang);
+            var wordList = WordListFactory.MakeWordList(lang, LoadData());
 
             while (playing)
             {

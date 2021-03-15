@@ -4,10 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hangman-common", "hangman-c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app-console", "app-console\app-console.csproj", "{AE1DBB68-BF35-4996-8F6C-23251CD164D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hangman-dynamic-wordlist", "hangman-dynamic-wordlist\hangman-dynamic-wordlist.csproj", "{C8CAC545-E102-4493-AE30-C95F6663F9C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hangman-static-wordlist", "hangman-static-wordlist\hangman-static-wordlist.csproj", "{8B5F3A0D-0DCA-48E5-8883-86453615E20B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "utilities", "utilities\utilities.csproj", "{ECAD401D-33B5-4975-AF31-A007C8C09D69}"
 EndProject
 Global
@@ -24,14 +20,6 @@ Global
 		{AE1DBB68-BF35-4996-8F6C-23251CD164D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE1DBB68-BF35-4996-8F6C-23251CD164D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE1DBB68-BF35-4996-8F6C-23251CD164D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8CAC545-E102-4493-AE30-C95F6663F9C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8CAC545-E102-4493-AE30-C95F6663F9C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8CAC545-E102-4493-AE30-C95F6663F9C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8CAC545-E102-4493-AE30-C95F6663F9C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B5F3A0D-0DCA-48E5-8883-86453615E20B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B5F3A0D-0DCA-48E5-8883-86453615E20B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B5F3A0D-0DCA-48E5-8883-86453615E20B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B5F3A0D-0DCA-48E5-8883-86453615E20B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECAD401D-33B5-4975-AF31-A007C8C09D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECAD401D-33B5-4975-AF31-A007C8C09D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECAD401D-33B5-4975-AF31-A007C8C09D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
